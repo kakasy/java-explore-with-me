@@ -1,10 +1,8 @@
 package ru.practicum.stats.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import ru.practicum.stats.dto.validation.IpAddressValidation;
 
 import javax.validation.constraints.NotBlank;
@@ -16,22 +14,23 @@ import java.time.LocalDateTime;
 @Builder
 @Data
 @NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class EndpointHitDto {
 
     @NotBlank
     @Size(max = 255)
-    private String app;
+    String app;
 
     @NotBlank
     @Size(max = 255)
-    private String uri;
+    String uri;
 
     @IpAddressValidation
-    private String ip;
+    String ip;
 
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime timestamp;
+    LocalDateTime timestamp;
 
 
 }
