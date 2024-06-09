@@ -11,28 +11,31 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 public class ErrorHandler {
 
-    @ExceptionHandler
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+
+        String message = ex.getBindingResult().getAllErrors().get(0).getDefaultMessage();
+        log.info("Получен статус 400: {}, {}", ex.getMessage(), ex.getStackTrace());
+        return new ErrorResponse(message, ex.getCause(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleInvalidArgumentException(InvalidArgumentException ex) {
+
+        String message = ex.getMessage();
+        log.info("Получен статус 400: {}, {}", ex.getMessage(), ex.getStackTrace());
+        return new ErrorResponse(message, ex.getCause(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleOtherExceptions(final Throwable e) {
+    public ErrorResponse handleUnhandledException(Throwable ex) {
 
-        log.debug("Получен статус 500 Internal Server Error {}", e.getMessage(), e);
-        return new ErrorResponse(e.getMessage());
-    }
-
-    @ExceptionHandler({MethodArgumentNotValidException.class})
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleNotValidArgumentException(final MethodArgumentNotValidException e) {
-
-        log.debug("Получен статус 400 Bad Request {}", e.getMessage(), e);
-        return new ErrorResponse(e.getMessage());
-    }
-
-    @ExceptionHandler({InvalidArgumentException.class})
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleInvalidArgumentException(final InvalidArgumentException e) {
-
-        log.debug("Получен статус 400 Bad Request {}", e.getMessage(), e);
-        return new ErrorResponse(e.getMessage());
+        String message = ex.getMessage();
+        log.info("Получен статус 500: {}, {}", ex.getMessage(), ex.getStackTrace());
+        return new ErrorResponse(message, ex.getCause(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 

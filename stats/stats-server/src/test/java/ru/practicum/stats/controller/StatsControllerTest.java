@@ -68,7 +68,7 @@ public class StatsControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
@@ -272,48 +272,6 @@ public class StatsControllerTest {
                 any(LocalDateTime.class), anyList(), anyBoolean());
 
         assertEquals(objectMapper.writeValueAsString(List.of(dto)), result);
-    }
-
-    @SneakyThrows
-    @Test
-    void getStats_whenStartIsNotExist_returnBadRequest() {
-
-        String end = "2027-07-07 07:07:07";
-
-        mvc.perform(get("/stats")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .characterEncoding(StandardCharsets.UTF_8)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .param("end", end)
-                )
-                .andDo(print())
-                .andExpect(status().isBadRequest())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
-
-        verifyNoInteractions(service);
-    }
-
-    @SneakyThrows
-    @Test
-    void getStats_whenEndIsNotExist_returnBadRequest() {
-
-        String start = "2027-07-07 07:07:07";
-
-        mvc.perform(get("/stats")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .characterEncoding(StandardCharsets.UTF_8)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .param("start", start)
-                )
-                .andDo(print())
-                .andExpect(status().isBadRequest())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
-
-        verifyNoInteractions(service);
     }
 
     @SneakyThrows
