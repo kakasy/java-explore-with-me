@@ -14,55 +14,57 @@ public class ErrorHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ApiError handleMethodArgumentNotValidException(final MethodArgumentNotValidException e) {
-
+    public ApiError handleMethodArgumentNotValidException(Exception e) {
         String message = e.getMessage();
-        log.info("Получен статус 400 Bad Request: {}, {}", e.getMessage(), e.getStackTrace());
+        log.info("Получен статус 400: {}, {}", e.getMessage(), e.getStackTrace());
         return new ApiError(message, e.getCause(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ApiError handleIllegalArgException(final Exception e) {
-
+    public ApiError handleIllegalArgException(Exception e) {
         String message = e.getMessage();
-        log.info("Получен статус 400 Bad Request: {}, {}", e.getMessage(), e.getStackTrace());
+        log.info("Получен статус 400: {}, {}", e.getMessage(), e.getStackTrace());
+        return new ApiError(message, e.getCause(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiError handleValidationException(Exception e) {
+        String message = e.getMessage();
+        log.info("Получен статус 400: {}, {}", e.getMessage(), e.getStackTrace());
         return new ApiError(message, e.getCause(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ApiError handleEntityNotFoundException(final EntityNotFoundException e) {
-
+    public ApiError handleNotFoundException(Exception e) {
         String message = e.getMessage();
-        log.info("Получен статус 404 Not Found: {}, {}", e.getMessage(), e.getStackTrace());
+        log.info("Получен статус 404: {}, {}", e.getMessage(), e.getStackTrace());
         return new ApiError(message, e.getCause(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(ConflictException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ApiError handleConflictException(final ConflictException e) {
-
+    public ApiError handleConflictException(Exception e) {
         String message = e.getMessage();
-        log.info("Получен статус 409 Conflict: {}, {}", e.getMessage(), e.getStackTrace());
+        log.info("Получен статус 409: {}, {}", e.getMessage(), e.getStackTrace());
         return new ApiError(message, e.getCause(), HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(IllegalStateException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ApiError handleIllegalStateException(final Exception e) {
-
+    public ApiError handleIllegalStateException(Exception e) {
         String message = e.getMessage();
-        log.info("Получен статус 409 Conflict: {}, {}", e.getMessage(), e.getStackTrace());
+        log.info("Получен статус 409: {}, {}", e.getMessage(), e.getStackTrace());
         return new ApiError(message, e.getCause(), HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ApiError handleConstraintViolationException(final Exception e) {
-
+    public ApiError handleConstraintViolationException(Exception e) {
         String message = e.getMessage();
-        log.info("Получен статус 409 Conflict: {}, {}", e.getMessage(), e.getStackTrace());
+        log.info("Получен статус 409: {}, {}", e.getMessage(), e.getStackTrace());
         return new ApiError(message, e.getCause(), HttpStatus.CONFLICT);
     }
 }

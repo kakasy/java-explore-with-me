@@ -1,5 +1,6 @@
 package ru.practicum.spec;
 
+import lombok.ToString;
 import lombok.experimental.UtilityClass;
 import org.springframework.data.jpa.domain.Specification;
 import ru.practicum.entity.Event;
@@ -11,6 +12,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @UtilityClass
+@ToString
 public class EventSpec {
 
     public Specification<Event> initiatorsIn(List<Long> users) {

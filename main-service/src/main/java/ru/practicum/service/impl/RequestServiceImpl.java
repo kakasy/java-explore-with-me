@@ -53,7 +53,6 @@ public class RequestServiceImpl implements RequestService {
             throw new ConflictException("Запрос уже существует");
         }
 
-
         User user = checkUser(userId);
         Event event = checkEvent(eventId);
 
