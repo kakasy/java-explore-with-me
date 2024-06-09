@@ -23,7 +23,7 @@ public class NewEventDto {
     Long category;
 
     @NotBlank
-    @Size(min = 20, max = 5000)
+    @Size(min = 20, max = 7000)
     String description;
 
     @NotNull
