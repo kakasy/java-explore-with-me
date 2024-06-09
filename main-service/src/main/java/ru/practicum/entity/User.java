@@ -23,7 +23,7 @@ public class User {
     @Column(name = "name", nullable = false)
     String name;
 
-    @Size(min = 6, max = 250)
+    @Size(min = 6, max = 254)
     @Column(name = "email", nullable = false)
     String email;
 }
