@@ -32,8 +32,7 @@ public class ParticipationMapper {
             if (req.getStatus().equals(RequestStatus.CONFIRMED)) {
 
                 confirmedRequests.add(ParticipationMapper.toRequestDto(req));
-            }
-            else {
+            } else {
                 rejectedRequests.add(ParticipationMapper.toRequestDto(req));
             }
         }
