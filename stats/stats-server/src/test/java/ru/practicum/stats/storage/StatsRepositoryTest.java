@@ -17,8 +17,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DataJpaTest
 public class StatsRepositoryTest {
 
+    private final StatsRepository statsRepository;
+
     @Autowired
-    StatsRepository statsRepository;
+    public StatsRepositoryTest(StatsRepository statsRepository) {
+        this.statsRepository = statsRepository;
+    }
 
     @BeforeEach
     void startUp() {
