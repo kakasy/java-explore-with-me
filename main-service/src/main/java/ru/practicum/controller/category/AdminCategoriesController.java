@@ -18,6 +18,8 @@ public class AdminCategoriesController {
 
     private final CategoryService service;
 
+    private static final String CAT_ID_PATH = "/{catId}";
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CategoryDto createCategory(@RequestBody @Valid NewCategoryDto creatingDto) {
@@ -26,7 +28,7 @@ public class AdminCategoriesController {
         return service.createCategory(creatingDto);
     }
 
-    @DeleteMapping("/{catId}")
+    @DeleteMapping(CAT_ID_PATH)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategory(@PathVariable Long catId) {
 
@@ -35,7 +37,7 @@ public class AdminCategoriesController {
     }
 
 
-    @PatchMapping("/{catId}")
+    @PatchMapping(CAT_ID_PATH)
     public CategoryDto updateCategory(@PathVariable Long catId,
                                       @RequestBody @Valid NewCategoryDto updatingDto) {
 

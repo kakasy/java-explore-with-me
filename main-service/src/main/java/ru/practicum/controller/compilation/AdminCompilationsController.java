@@ -19,6 +19,8 @@ public class AdminCompilationsController {
 
     private final CompilationService service;
 
+    private static final String COMP_ID_PATH = "/{compId}";
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CompilationsDto createCompilation(@RequestBody @Valid NewCompilationDto creatingDto) {
@@ -27,7 +29,7 @@ public class AdminCompilationsController {
         return service.createCompilation(creatingDto);
     }
 
-    @DeleteMapping("/{compId}")
+    @DeleteMapping(COMP_ID_PATH)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCompilation(@PathVariable Long compId) {
 
@@ -35,7 +37,7 @@ public class AdminCompilationsController {
         service.deleteCompilation(compId);
     }
 
-    @PatchMapping("/{compId}")
+    @PatchMapping(COMP_ID_PATH)
     public CompilationsDto updateCompilation(@PathVariable Long compId,
                                              @RequestBody @Valid UpdateCompilationRequest updatingDto) {
 
