@@ -34,6 +34,8 @@ public class CommentServiceImpl implements CommentService {
     private final EventRepository eventRepository;
     private final CommentRepository commentRepository;
 
+    private static final String UNCHANGED_COMMENT = "Комментарий не содержит изменений";
+
     @Override
     public CommentDtoResponse createComment(Long userId, Long eventId, NewCommentDto creatingDto) {
 
@@ -59,7 +61,7 @@ public class CommentServiceImpl implements CommentService {
             throw new ConflictException("Время для изменения комментария вышло");
         }
         if (oldComment.getText().equals(updatingDto.getText())) {
-            log.info("Комментарий не содержит изменений");
+            log.info(UNCHANGED_COMMENT);
             return CommentMapper.toCommentResponse(oldComment);
         }
 
@@ -76,7 +78,7 @@ public class CommentServiceImpl implements CommentService {
         Comment oldComment = checkComment(commentId);
 
         if (oldComment.getText().equals(updatingDto.getText())) {
-            log.info("Комментарий не содержит изменений");
+            log.info(UNCHANGED_COMMENT);
             return CommentMapper.toCommentResponse(oldComment);
         }
 
